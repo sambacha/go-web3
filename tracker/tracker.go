@@ -37,6 +37,7 @@ const (
 type FilterConfig struct {
 	Address []web3.Address `json:"address"`
 	Topics  []*web3.Hash   `json:"topics"`
+	To      []web3.Address
 	Start   uint64
 	Hash    string
 	Async   bool
@@ -61,6 +62,9 @@ func (f *FilterConfig) getFilterSearch() *web3.LogFilter {
 	filter := &web3.LogFilter{}
 	if len(f.Address) != 0 {
 		filter.Address = f.Address
+	}
+	if len(f.To) != 0 {
+		filter.ToAddr = f.To
 	}
 	if len(f.Topics) != 0 {
 		filter.Topics = f.Topics

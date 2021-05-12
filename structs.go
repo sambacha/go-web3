@@ -100,6 +100,7 @@ type CallMsg struct {
 
 type LogFilter struct {
 	Address   []Address
+	ToAddr    []Address
 	Topics    []*Hash
 	BlockHash *Hash
 	From      *BlockNumber

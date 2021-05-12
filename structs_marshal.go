@@ -144,6 +144,15 @@ func (l *LogFilter) MarshalJSON() ([]byte, error) {
 		for indx, addr := range l.Address {
 			v.SetArrayItem(indx, a.NewString(addr.String()))
 		}
+		o.Set("address", v)
+	}
+
+	if len(l.ToAddr) != 0 {
+		v := a.NewArray()
+		for indx, addr := range l.ToAddr {
+			v.SetArrayItem(indx, a.NewString(addr.String()))
+		}
+		o.Set("to", v)
 	}
 
 	v := a.NewArray()
