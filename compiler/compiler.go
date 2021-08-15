@@ -29,4 +29,6 @@ type Artifact struct {
 	Abi        string
 	Bin        string
 	BinRuntime string
+	SrcMap     string
+	AST        map[string]interface{}
 }

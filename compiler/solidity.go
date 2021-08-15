@@ -15,13 +15,19 @@ import (
 
 type solcOutput struct {
 	Contracts map[string]*solcContract
+	Sources   map[string]*solcSource
 	Version   string
+}
+
+type solcSource struct {
+	AST map[string]interface{}
 }
 
 type solcContract struct {
 	BinRuntime string `json:"bin-runtime"`
 	Bin        string
 	Abi        string
+	SrcMap     string `json:"srcmap"`
 }
 
 // Solidity is the solidity compiler
@@ -57,7 +63,7 @@ func (s *Solidity) Compile(files ...string) (map[string]*Artifact, error) {
 func (s *Solidity) compileImpl(code string, files ...string) (map[string]*Artifact, error) {
 	args := []string{
 		"--combined-json",
-		"bin,bin-runtime,abi",
+		"bin,bin-runtime,abi,ast,srcmap,ast",
 	}
 	if code != "" {
 		args = append(args, "-")
@@ -86,11 +92,17 @@ func (s *Solidity) compileImpl(code string, files ...string) (map[string]*Artifa
 
 	artifacts := map[string]*Artifact{}
 	for name, i := range output.Contracts {
-		artifacts[name] = &Artifact{
+		artifact := &Artifact{
 			Bin:        i.Bin,
 			BinRuntime: i.BinRuntime,
 			Abi:        i.Abi,
+			SrcMap:     i.SrcMap,
 		}
+		ast, ok := output.Sources["<stdin>"]
+		if ok {
+			artifact.AST = ast.AST
+		}
+		artifacts[name] = artifact
 	}
 	return artifacts, nil
 }

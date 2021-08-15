@@ -86,7 +86,7 @@ type TestServer struct {
 
 // NewTestServer creates a new Geth test server
 func NewTestServer(t *testing.T, cb ServerConfigCallback) *TestServer {
-	path := "geth"
+	path := "/usr/local/bin/geth"
 
 	vcmd := exec.Command(path, "version")
 	vcmd.Stdout = nil
@@ -120,6 +120,9 @@ func NewTestServer(t *testing.T, cb ServerConfigCallback) *TestServer {
 
 	// enable rpc
 	args = append(args, "--rpc", "--rpcport", config.HTTPPort)
+
+	// enable rpc api methods
+	args = append(args, "--rpcapi", "eth,net,web3,debug")
 
 	// enable ws
 	args = append(args, "--ws", "--wsport", config.WSPort)

@@ -441,10 +441,10 @@ func decodeSimpleType(str string) (*Type, error) {
 		return &Type{kind: KindString, t: stringT, raw: "string"}, nil
 
 	case "bool":
-		return &Type{kind: KindBool, t: boolT, raw: "bool"}, nil
+		return &Type{kind: KindBool, size: 1, t: boolT, raw: "bool"}, nil
 
 	case "address":
-		return &Type{kind: KindAddress, t: addressT, raw: "address"}, nil
+		return &Type{kind: KindAddress, size: 20, t: addressT, raw: "address"}, nil
 
 	case "function":
 		return &Type{kind: KindFunction, size: 24, t: functionT, raw: "function"}, nil
