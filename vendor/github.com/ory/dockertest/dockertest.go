@@ -211,10 +211,9 @@ func (d *Pool) BuildAndRunWithBuildOptions(buildOpts *BuildOptions, runOpts *Run
 func (d *Pool) BuildAndRunWithOptions(dockerfilePath string, opts *RunOptions, hcOpts ...func(*dc.HostConfig)) (*Resource, error) {
 	// Set the Dockerfile folder as build context
 	dir, file := filepath.Split(dockerfilePath)
-	buildOpts := BuildOptions{Dockerfile:file, ContextDir:dir}
+	buildOpts := BuildOptions{Dockerfile: file, ContextDir: dir}
 	return d.BuildAndRunWithBuildOptions(&buildOpts, opts, hcOpts...)
 }
-
 
 // BuildAndRun builds and starts a docker container
 func (d *Pool) BuildAndRun(name, dockerfilePath string, env []string) (*Resource, error) {
