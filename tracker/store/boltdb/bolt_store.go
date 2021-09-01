@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 
-	"github.com/etcd-io/bbolt"
+	"go.etcd.io/bbolt"
 	"github.com/umbracle/go-web3"
 	"github.com/umbracle/go-web3/tracker/store"
 )
